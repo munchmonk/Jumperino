@@ -1,0 +1,39 @@
+html {
+	background-color: #e5e600;
+}
+
+h1 {
+	font: bold 30px 'Arial Black';
+	text-align: center;
+	margin: 0 auto;
+}
+
+#credits {
+	font: 16px 'Arial Black';
+	width: 870px;
+	position: relative;
+	margin: 0 auto;
+	top: 510px;
+
+}
+
+a:link {
+	color: red;
+}
+
+a:visited {
+	color: red;
+}
+
+canvas {
+	position: absolute;
+	margin: auto;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+
+#signature {
+	text-align: right;
+}
