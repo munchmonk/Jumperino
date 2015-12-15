@@ -6,6 +6,7 @@ var
 	HEIGHT = 500,
 	keystate = {},
 	wKey = 87,
+	mc,
 	background = new Image(),
 	slow_backgorund = [new Image(), new Image()],
 	fast_backgorund = [new Image(), new Image()],
@@ -16,6 +17,7 @@ var
 	score = 0,
 	highscore = 0,
 	click = false,
+	tap = false,
 
 	// Parameters; play with them and experiment
 	impulse = -40,
@@ -116,9 +118,10 @@ var
 		},
 
 		update: function() {
-			if (!this.jumping && (keystate[wKey] || click)) {
+			if (!this.jumping && (keystate[wKey] || click || tap)) {
 				this.dy = impulse;
 				this.jumping = true;
+				tap = false;
 				this.curr_img = 0;
 				this.frames = 0;
 			}
@@ -225,9 +228,10 @@ function drawScore() {
 }
 
 function setup() {
-	document.body.appendChild(canvas);
+	canvas.id = "gamefield";
 	canvas.width = WIDTH;
 	canvas.height = HEIGHT;
+	document.body.appendChild(canvas);
 
 	document.addEventListener("keydown", function(evt) {
 		keystate[evt.keyCode] = true;
@@ -241,6 +245,14 @@ function setup() {
 	document.addEventListener("mouseup", function() {
 		click = false;
 	});
+
+	if (('ontouchstart') in window) {
+		mc = new Hammer(document.getElementById('gamefield'));
+		mc.on("tap press", function(ev) {
+			tap = true;
+		});
+		mc.get('doubletap').set({ enable: false});
+	}	
 
 	background.src = 'images/background.png';
 	context.fillStyle = 'red';
